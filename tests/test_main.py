@@ -7,6 +7,7 @@ import shutil
 @pytest.fixture
 def setup_git_environment(tmpdir):
     original_dir = os.getcwd()
+    print(original_dir)
     os.chdir(tmpdir)
     yield tmpdir
     os.chdir(original_dir)
