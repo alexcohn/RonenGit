@@ -4,10 +4,12 @@ import sys
 import subprocess
 import shutil
 
+main_py = ""
+
 @pytest.fixture
 def setup_git_environment(tmpdir):
-    original_dir = os.getcwd()
-    print(original_dir)
+    global main_py
+    main_py = os.join(os.getcwd(), "app/main.py")
     os.chdir(tmpdir)
     yield tmpdir
     os.chdir(original_dir)
@@ -15,8 +17,9 @@ def setup_git_environment(tmpdir):
         shutil.rmtree(tmpdir)
 
 def test_init(setup_git_environment):
-    print(sys.executable)
-    result = subprocess.run([sys.executable, "app/main.py", "init"], capture_output=True, text=True)
+    print(main_py)
+    print(tmpdir)
+    result = subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
     assert result.returncode == 0
     assert os.path.exists(".git")
     assert os.path.exists(".git/objects")
