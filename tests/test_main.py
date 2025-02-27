@@ -9,7 +9,7 @@ main_py = ""
 @pytest.fixture
 def setup_git_environment(tmpdir):
     global main_py
-    main_py = os.join(os.getcwd(), "app/main.py")
+    main_py = os.path.join(os.getcwd(), "app/main.py")
     os.chdir(tmpdir)
     yield tmpdir
     os.chdir(original_dir)
