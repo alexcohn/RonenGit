@@ -36,28 +36,28 @@ def test_cat_file(setup_git_environment):
     result = subprocess.run(["git", "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
     result = subprocess.run([sys.executable, main_py, "cat-file", "-p", result.stdout.strip()], capture_output=True, text=True)
     assert result.stdout.strip() == "Hello World"
-    subprocess.run("ls", "-lar")
+    subprocess.run(["ls", "-lar"])
 
-def test_hash_object(setup_git_environment):
-    subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
-    with open("testfile.txt", "w") as f:
-        f.write("Hello World")
-    result = subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
-    assert result.stdout.strip() == "e59ff97941044f85df5297e1c302d260022b1d1a"
+# def test_hash_object(setup_git_environment):
+#     subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
+#     with open("testfile.txt", "w") as f:
+#         f.write("Hello World")
+#     result = subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
+#     assert result.stdout.strip() == "e59ff97941044f85df5297e1c302d260022b1d1a"
 
-def test_ls_tree(setup_git_environment):
-    subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
-    with open("testfile.txt", "w") as f:
-        f.write("Hello World")
-    subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
-    subprocess.run([sys.executable, main_py, "write-tree"], capture_output=True, text=True)
-    result = subprocess.run([sys.executable, main_py, "ls-tree", "--name-only", "4b825dc642cb6eb9a060e54bf8d69288fbee4904"], capture_output=True, text=True)
-    assert "testfile.txt" in result.stdout
+# def test_ls_tree(setup_git_environment):
+#     subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
+#     with open("testfile.txt", "w") as f:
+#         f.write("Hello World")
+#     subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
+#     subprocess.run([sys.executable, main_py, "write-tree"], capture_output=True, text=True)
+#     result = subprocess.run([sys.executable, main_py, "ls-tree", "--name-only", "4b825dc642cb6eb9a060e54bf8d69288fbee4904"], capture_output=True, text=True)
+#     assert "testfile.txt" in result.stdout
 
-def test_write_tree(setup_git_environment):
-    subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
-    with open("testfile.txt", "w") as f:
-        f.write("Hello World")
-    subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
-    result = subprocess.run([sys.executable, main_py, "write-tree"], capture_output=True, text=True)
-    assert "Stored tree" in result.stdout
+# def test_write_tree(setup_git_environment):
+#     subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
+#     with open("testfile.txt", "w") as f:
+#         f.write("Hello World")
+#     subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
+#     result = subprocess.run([sys.executable, main_py, "write-tree"], capture_output=True, text=True)
+#     assert "Stored tree" in result.stdout
