@@ -30,10 +30,10 @@ def test_init(setup_git_environment):
     assert "Initialized git directory" in result.stdout
 
 def test_cat_file(setup_git_environment):
-    subprocess.run([sys.executable, main_py, "init"], capture_output=True, text=True)
+    subprocess.run(["git", "init"], capture_output=True, text=True)
     with open("testfile.txt", "w") as f:
         f.write("Hello World")
-    subprocess.run([sys.executable, main_py, "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
+    subprocess.run(["git", "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
     result = subprocess.run([sys.executable, main_py, "cat-file", "-p", "e59ff97941044f85df5297e1c302d260022b1d1a"], capture_output=True, text=True)
     assert result.stdout == "Hello World"
 
