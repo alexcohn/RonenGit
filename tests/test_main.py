@@ -36,7 +36,7 @@ def test_cat_file(setup_git_environment):
     result = subprocess.run(["git", "hash-object", "-w", "testfile.txt"], capture_output=True, text=True)
     result = subprocess.run([sys.executable, main_py, "cat-file", "-p", result.stdout.strip()], capture_output=True, text=True)
     assert result.stdout.strip() == "Hello World"
-    result = subprocess.run(["ls", "-lar"], capture_output=True, text=True))
+    result = subprocess.run(["ls", "-lar"], capture_output=True, text=True)
     print(result.stdout)
 
 # def test_hash_object(setup_git_environment):
